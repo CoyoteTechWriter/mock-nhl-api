@@ -14,6 +14,11 @@ This is done solely for the purpose of portfolio. I do not wish to make profit n
 - GET and POST methods (with proper summaries, descriptions and references)
 - Schemas and parameters populated with strings, integers, regular expression patterns, etc.
 
+### Reasoning
+
+I decided to use string for jersey numbers, because this allows regular expression use for patterns.
+The 'reusable' include schemas and properties since I wanted to showcase my knowledge of OAS best practice.
+
 ### Quick start
 Open the yaml file in this repo → click “View API docs” and try it!
 
