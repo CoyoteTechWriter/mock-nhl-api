@@ -1,0 +1,141 @@
+openapi: 3.0.2
+info:
+  title: NHL API v1
+  description: Version 1 of a mock NHL Api
+  version: "1.0"
+servers:
+- url: https://virtserver.swaggerhub.com/none-2ef-05d/nhl-api-v1/1.0
+  description: A production server
+paths:
+  /players:
+    get:
+      tags:
+      - Players
+      summary: NHL player search
+      description: Endpoint for searching **NHL players** by criteria
+      operationId: nhlPlayerSearchV1
+      parameters:
+      - name: playerID
+        in: query
+        required: false
+        schema:
+          pattern: "^\\d{1,5}$"
+          type: string
+          description: Must follow the pattern of 5 digits!
+          example: "12345"
+      - name: playerFirstName
+        in: query
+        required: false
+        schema:
+          maxLength: 15
+          minLength: 5
+          type: string
+          example: Keith
+      - name: playerLastName
+        in: query
+        required: false
+        schema:
+          maxLength: 30
+          minLength: 5
+          type: string
+          example: Tkachuk
+      - name: playerJerseyNumber
+        in: query
+        required: false
+        schema:
+          pattern: "^\\d{1,2}$"
+          type: string
+          description: Jersey number of max two digits!
+          example: "77"
+      responses:
+        "200":
+          description: Player(s) found!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/nhlPlayers"
+    post:
+      tags:
+      - Players
+      summary: Add Player
+      description: Posting NHL players to the endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/nhlPlayers"
+        required: true
+      responses:
+        "201":
+          description: Player added!
+          headers:
+            Location:
+              description: Location of the created Player
+              schema:
+                type: string
+                format: uri
+                example: "https://example.com/{playerID}"
+components:
+  schemas:
+    nhlPlayers:
+      type: object
+      properties:
+        playerID:
+          pattern: "^\\d{1,5}$"
+          type: string
+          description: Must follow the pattern of 5 digits!
+          example: "12345"
+        playerFirstName:
+          maxLength: 15
+          minLength: 2
+          type: string
+          example: Keith
+        playerLastName:
+          maxLength: 30
+          minLength: 2
+          type: string
+          example: Tkachuk
+        playerJerseyNumber:
+          pattern: "^\\d{1,2}$"
+          type: string
+          description: Jersey number of max two digits!
+          example: "77"
+  parameters:
+    playerID:
+      name: playerID
+      in: query
+      required: false
+      schema:
+        pattern: "^\\d{1,5}$"
+        type: string
+        description: Must follow the pattern of 5 digits!
+        example: "12345"
+    playerFirstName:
+      name: playerFirstName
+      in: query
+      required: false
+      schema:
+        maxLength: 15
+        minLength: 5
+        type: string
+        example: Keith
+    playerLastName:
+      name: playerLastName
+      in: query
+      required: false
+      schema:
+        maxLength: 30
+        minLength: 5
+        type: string
+        example: Tkachuk
+    playerJerseyNumber:
+      name: playerJerseyNumber
+      in: query
+      required: false
+      schema:
+        pattern: "^\\d{1,2}$"
+        type: string
+        description: Jersey number of max two digits!
+        example: "77"
